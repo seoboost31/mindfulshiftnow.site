@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindfulShiftNow — A Calmer Way to Grow</title>
+<meta name="description" content="MindfulShiftNow is a home for mind, body, habits, focus, sleep and everyday-life guidance — practical, calm, and built around real breathing room.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23291F;
+    --sage:#6B7A5E;
+    --sage-dim:#93A184;
+    --sand:#EDE6D6;
+    --cream:#FAF8F2;
+    --gold:#C9A227;
+    --clay:#8C5E3C;
+    --line: rgba(35,41,31,0.14);
+    --shadow: 0 20px 50px rgba(35,41,31,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sage);
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- Skip link / focus ---------- */
+  .skip-link{
+    position:absolute; left:-999px; top:0;
+    background:var(--ink); color:var(--cream);
+    padding:10px 16px; z-index:999; border-radius:6px;
+  }
+  .skip-link:focus{ left:16px; top:16px; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,248,242,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-size:1.15rem; font-weight:600;
+    text-decoration:none; color:var(--ink);
+  }
+  .logo-mark{
+    width:26px;height:26px;border-radius:50%;
+    background:conic-gradient(from 90deg, var(--sage), var(--gold), var(--clay), var(--sage));
+    flex:none;
+  }
+  nav.links{
+    display:flex; gap:30px; list-style:none; margin:0; padding:0;
+  }
+  nav.links a{
+    text-decoration:none; font-size:0.92rem; color:var(--ink);
+    position:relative; padding-bottom:3px;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:var(--gold); transition:width .25s ease;
+  }
+  nav.links a:hover::after{ width:100%; }
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    border:1px solid var(--ink);
+    padding:9px 16px;
+    border-radius:100px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ background:var(--ink); color:var(--cream); }
+  .burger{ display:none; background:none; border:none; cursor:pointer; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items:center;
+    gap:56px;
+    padding:76px 32px 90px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .hero-copy .eyebrow{ margin-bottom:18px; display:block; }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    line-height:1.04;
+    color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--sage);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.08rem;
+    max-width:46ch;
+    color:#3f4636;
+  }
+  .hero-actions{
+    display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--ink); color:var(--cream);
+    padding:14px 26px; border-radius:100px;
+    text-decoration:none; font-size:0.95rem; font-weight:500;
+    box-shadow:var(--shadow);
+    transition:transform .2s ease, background .2s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); background:var(--sage); }
+  .btn-ghost{
+    padding:14px 22px; border-radius:100px;
+    text-decoration:none; font-size:0.95rem;
+    border:1px solid var(--line); color:var(--ink);
+  }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  .hero-visual{
+    position:relative;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    aspect-ratio: 4 / 5;
+  }
+  .hero-visual img{
+    width:100%; height:100%; object-fit:cover;
+    filter:saturate(0.92) contrast(1.02);
+  }
+  .hero-visual::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(35,41,31,0) 45%, rgba(35,41,31,0.55) 100%);
+  }
+  .breath-badge{
+    position:absolute; left:20px; bottom:20px; z-index:2;
+    display:flex; align-items:center; gap:12px;
+    color:var(--cream);
+  }
+  .breath-ring{
+    width:40px; height:40px; border-radius:50%;
+    border:1.5px solid rgba(250,248,242,0.9);
+    position:relative; flex:none;
+  }
+  .breath-ring::before{
+    content:""; position:absolute; inset:9px;
+    border-radius:50%; background:var(--cream);
+    animation: breathe 5.2s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform:scale(0.55); opacity:0.65; }
+    50%{ transform:scale(1); opacity:1; }
+  }
+  .breath-badge small{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.04em;
+    display:block; line-height:1.4;
+  }
+
+  /* ---------- Marquee strip ---------- */
+  .strip{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--sand);
+    overflow:hidden;
+    padding:14px 0;
+  }
+  .strip-track{
+    display:flex; gap:56px; white-space:nowrap;
+    animation: scroll-strip 26s linear infinite;
+    width:max-content;
+  }
+  .strip-track span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink); opacity:0.65;
+  }
+  @keyframes scroll-strip{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  /* ---------- Section shared ---------- */
+  section{ padding:90px 0; }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:48px; flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem, 3vw, 2.3rem);
+    max-width:20ch;
+  }
+  .section-head p{
+    max-width:38ch; color:#4b5240; font-size:0.98rem; margin:10px 0 0;
+  }
+
+  /* ---------- Category grid ---------- */
+  .grid-cats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .cat{
+    background:var(--cream);
+    padding:34px 28px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:background .25s ease;
+    min-height:190px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .cat:hover{ background:var(--sand); }
+  .cat .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; color:var(--sage);
+  }
+  .cat h3{ font-size:1.25rem; margin-top:26px; }
+  .cat p{ font-size:0.88rem; color:#5a614c; margin:8px 0 0; }
+
+  /* ---------- Reading list ---------- */
+  .reads{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .read-card{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:26px;
+    background:var(--cream);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .read-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+  .read-card .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.7rem;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--clay);
+  }
+  .read-card h3{ font-size:1.12rem; margin-top:14px; line-height:1.3; }
+  .read-card p{ font-size:0.9rem; color:#5a614c; margin-top:10px; }
+  .read-card .meta{
+    margin-top:18px; font-size:0.78rem; color:var(--sage-dim);
+    font-family:'IBM Plex Mono', monospace;
+  }
+
+  /* ---------- Practice band ---------- */
+  .practice{
+    background:var(--ink); color:var(--cream);
+    border-radius:24px;
+    padding:64px 48px;
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .practice .eyebrow{ color:var(--gold); }
+  .practice h2{ color:var(--cream); font-size:clamp(1.6rem,2.8vw,2.1rem); margin-top:14px; }
+  .practice p{ color:rgba(250,248,242,0.78); margin-top:16px; max-width:44ch; }
+  .steps{ list-style:none; margin:0; padding:0; display:grid; gap:18px; }
+  .steps li{
+    display:flex; gap:16px; align-items:flex-start;
+    border-top:1px solid rgba(250,248,242,0.16);
+    padding-top:18px;
+  }
+  .steps li:first-child{ border-top:none; padding-top:0; }
+  .steps .s-num{
+    font-family:'IBM Plex Mono', monospace; color:var(--gold); font-size:0.85rem; flex:none;
+    padding-top:2px;
+  }
+  .steps h4{ margin:0 0 4px; font-family:'Fraunces', serif; font-weight:500; font-size:1.02rem; }
+  .steps span{ font-size:0.88rem; color:rgba(250,248,242,0.72); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:56px 0 34px;
+  }
+  .foot-top{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px;
+    padding-bottom:36px; border-bottom:1px solid var(--line);
+  }
+  .foot-cols{ display:flex; gap:64px; flex-wrap:wrap; }
+  .foot-col h5{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    text-transform:uppercase; letter-spacing:0.1em; color:var(--sage);
+    margin-bottom:14px;
+  }
+  .foot-col ul{ list-style:none; margin:0; padding:0; display:grid; gap:9px; }
+  .foot-col a{ text-decoration:none; font-size:0.9rem; color:var(--ink); }
+  .foot-col a:hover{ color:var(--clay); }
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:24px; flex-wrap:wrap; gap:12px;
+  }
+  .foot-bottom p{ margin:0; font-size:0.8rem; color:#6b7260; }
+  .foot-note{
+    font-size:0.78rem; color:#6b7260; max-width:60ch;
+  }
+
+  @media (max-width: 900px){
+    .hero{ grid-template-columns:1fr; padding-top:44px; }
+    .hero-visual{ order:-1; aspect-ratio:16/10; }
+    .grid-cats{ grid-template-columns:1fr 1fr; }
+    .reads{ grid-template-columns:1fr; }
+    .practice{ grid-template-columns:1fr; padding:40px 26px; }
+    nav.links{ display:none; }
+    .nav-cta{ display:none; }
+    .burger{ display:block; }
+  }
+  @media (max-width: 560px){
+    .grid-cats{ grid-template-columns:1fr; }
+    .wrap, .hero{ padding-left:20px; padding-right:20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .strip-track{ animation:none; }
+    .breath-ring::before{ animation:none; transform:scale(0.85); }
+    .read-card, .btn-primary{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header>
+  <div class="nav wrap" style="padding-left:0; padding-right:0;">
+    <a href="#top" class="logo">
+      <span class="logo-mark" aria-hidden="true"></span>
+      MindfulShiftNow
+    </a>
+    <ul class="links">
+      <li><a href="#categories">Explore</a></li>
+      <li><a href="#reads">Latest</a></li>
+      <li><a href="#practice">The Method</a></li>
+      <li><a href="#footer-about">About</a></li>
+    </ul>
+    <a class="nav-cta" href="#reads">Start reading →</a>
+    <button class="burger" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <span class="eyebrow">Mind · Body · Everyday Life</span>
+      <h1>Small, steady shifts <em>beat</em> big resolutions.</h1>
+      <p class="lede">MindfulShiftNow is a calm corner of the internet for people building better focus, sleep, habits, and relationships — one honest, practical read at a time.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#categories">Browse topics</a>
+        <a class="btn-ghost" href="#practice">See how we write</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80" alt="Calm misty mountain ridge at sunrise, symbolizing a clear and steady mind">
+      <div class="breath-badge">
+        <span class="breath-ring" aria-hidden="true"></span>
+        <small>Take a breath.<br>You're exactly on time.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="strip-track" aria-hidden="true">
+      <span>FOCUS</span><span>SLEEP</span><span>HABITS</span><span>MONEY MINDSET</span><span>RELATIONSHIPS</span><span>MOVEMENT</span><span>REST</span>
+      <span>FOCUS</span><span>SLEEP</span><span>HABITS</span><span>MONEY MINDSET</span><span>RELATIONSHIPS</span><span>MOVEMENT</span><span>REST</span>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section id="categories">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Six rooms, one calmer life.</h2>
+        <p>Every topic on MindfulShiftNow lives in one of these rooms — pick the one that matches what's loudest in your head today.</p>
+      </div>
+      <div class="grid-cats">
+        <a class="cat" href="#reads">
+          <span class="num">01</span>
+          <div><h3>Focus &amp; Clarity</h3><p>Attention practices for a noisy, tab-heavy world.</p></div>
+        </a>
+        <a class="cat" href="#reads">
+          <span class="num">02</span>
+          <div><h3>Sleep &amp; Rest</h3><p>Wind-down routines that actually hold up on hard nights.</p></div>
+        </a>
+        <a class="cat" href="#reads">
+          <span class="num">03</span>
+          <div><h3>Habits &amp; Routine</h3><p>Systems that survive a bad week, not just a good one.</p></div>
+        </a>
+        <a class="cat" href="#reads">
+          <span class="num">04</span>
+          <div><h3>Money Mindset</h3><p>Calmer, clearer thinking around everyday financial stress.</p></div>
+        </a>
+        <a class="cat" href="#reads">
+          <span class="num">05</span>
+          <div><h3>Relationships</h3><p>Communication and boundaries, without the jargon.</p></div>
+        </a>
+        <a class="cat" href="#reads">
+          <span class="num">06</span>
+          <div><h3>Movement</h3><p>Low-pressure ways to keep your body part of the plan.</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST READS -->
+  <section id="reads">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Latest from the journal</h2>
+        <p>Short, specific, no-fluff pieces you can finish on one cup of coffee.</p>
+      </div>
+      <div class="reads">
+        <article class="read-card">
+          <span class="tag">Focus</span>
+          <h3>The 12-minute rule for starting anything</h3>
+          <p>Why committing to a short, fixed window beats "just try to focus" every single time.</p>
+          <div class="meta">6 min read</div>
+        </article>
+        <article class="read-card">
+          <span class="tag">Sleep</span>
+          <h3>Your bedroom is a signal, not a room</h3>
+          <p>Small environmental cues that quietly tell your brain it's safe to switch off.</p>
+          <div class="meta">5 min read</div>
+        </article>
+        <article class="read-card">
+          <span class="tag">Habits</span>
+          <h3>Stop tracking streaks. Track returns.</h3>
+          <p>The metric that actually predicts whether a habit survives your worst weeks.</p>
+          <div class="meta">7 min read</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE / METHOD -->
+  <section id="practice">
+    <div class="wrap">
+      <div class="practice">
+        <div>
+          <span class="eyebrow">Our approach</span>
+          <h2>We write like your one honest friend, not a wellness brand.</h2>
+          <p>No miracle routines, no funnels, no dark patterns. Just clear writing built on a simple loop we return to for every piece.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="s-num">01</span><div><h4>Name the real friction</h4><span>Start from the specific moment something feels hard — not the abstract goal.</span></div></li>
+          <li><span class="s-num">02</span><div><h4>Offer one small shift</h4><span>A single, testable change you can try today, not a 30-day overhaul.</span></div></li>
+          <li><span class="s-num">03</span><div><h4>Explain the "why"</h4><span>The reasoning behind it, so it still works when circumstances change.</span></div></li>
+          <li><span class="s-num">04</span><div><h4>Leave room to adapt</h4><span>Guidance you can bend to your life, never a rule you have to obey.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer-about">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"></span>MindfulShiftNow</a>
+        <p class="foot-note" style="margin-top:14px;">A calm, practical space for mind, body, habits, and everyday life — written for people who want steadier days, not a new identity.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="#categories">Focus &amp; Clarity</a></li>
+            <li><a href="#categories">Sleep &amp; Rest</a></li>
+            <li><a href="#categories">Habits &amp; Routine</a></li>
+            <li><a href="#categories">Relationships</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Site</h5>
+          <ul>
+            <li><a href="#reads">Journal</a></li>
+            <li><a href="#practice">Our Method</a></li>
+            <li><a href="#footer-about">About</a></li>
+            <li><a href="#top">Home</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 MindfulShiftNow. All rights reserved.</p>
+      <p class="foot-note">MindfulShiftNow publishes general wellbeing and lifestyle content only. No casino, gambling, or adult content is hosted or promoted on this site.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
